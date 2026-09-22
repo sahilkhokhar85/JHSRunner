@@ -241,8 +241,6 @@ async def download_poster_with_fallback(data: dict) -> bytes:
 
 http_session: aiohttp.ClientSession = None
 
-client = TelegramClient(STRING_SESSION, API_ID, API_HASH)
-
 
 @client.on(events.NewMessage(chats=SOURCE_CHANNEL))
 async def handle_new_message(event):
