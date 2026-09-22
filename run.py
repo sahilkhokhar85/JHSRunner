@@ -189,7 +189,13 @@ def parse_message(text: str):
 def build_caption(show_name: str, data: dict) -> str:
     """Build the final HTML-formatted caption."""
     safe_show_name = html.escape(show_name)
-    safe_title = html.escape(data["title"].title())
+    safe_title = html.escape(
+        re.sub(
+            r"\b([A-Za-z]+)'([A-Za-z]+)\b",
+            lambda m: m.group(1).capitalize() + "'" + m.group(2).lower(),
+            data["title"].title()
+        )
+    )
     safe_url = html.escape(data["hotstar_url"])
 
     caption = (
