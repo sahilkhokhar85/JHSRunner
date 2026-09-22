@@ -77,6 +77,11 @@ SEASON_EP_PATTERN = re.compile(r"S(\d+)\s*E(\d+)", re.IGNORECASE)
 DATE_PATTERN = re.compile(r"\b(\d{1,2}\s+[A-Za-z]{3}\s+\d{4})\b")
 POSTER_PATTERN = re.compile(r"https://img\d+\.hotstar\.com/image/upload/[^\s]+")
 
+
+def clean_show_url(url):
+    match = re.match(r"(https://www\.hotstar\.com/in/shows/[^/]+/watch)", url)
+    return match.group(1) if match else url
+
 # ---------------------------------------------------------------------------
 # In-memory duplicate protection
 # ---------------------------------------------------------------------------
