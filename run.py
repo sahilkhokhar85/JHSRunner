@@ -132,16 +132,45 @@ def extract_title(lines: list, url_index: int) -> str:
 
 
 def smart_title_case(text: str) -> str:
-    def convert_word(match):
-        word = match.group(0)
+    special_words = {
+        "bbhin": "BBHin",
+        "ias": "IAS",
+        "ipl": "IPL",
+        "usa": "USA",
+    }
 
-        # Preserve mixed/uppercase words like BBHin, IAS, IPL
-        if any(c.isupper() for c in word[1:]):
-            return word
+    words = text.split()
+    result = []
 
-        return word[0].upper() + word[1:].lower()
+    for word in words:
+        match = re.match(
+            r"^([^A-Za-z]*)([A-Za-z]+(?:'[A-Za-z]+)?)([^A-Za-z]*)$",
+            word
+        )
 
-    return re.sub(r"[A-Za-z]+(?:'[A-Za-z]+)?", convert_word, text)
+        if not match:
+            result.append(word)
+            continue
+
+        prefix, actual, suffix = match.groups()
+        lower_actual = actual.lower()
+
+        if lower_actual in special_words:
+            actual = special_words[lower_actual]
+
+        elif "'" in actual:
+            parts = actual.split("'")
+            actual = "'".join(
+                part[:1].upper() + part[1:].lower()
+                for part in parts
+            )
+
+        else:
+            actual = actual[:1].upper() + actual[1:].lower()
+
+        result.append(prefix + actual + suffix)
+
+    return " ".join(result)
 
 
 def parse_message(text: str):
