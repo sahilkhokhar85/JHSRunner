@@ -131,6 +131,19 @@ def extract_title(lines: list, url_index: int) -> str:
     return ""
 
 
+def smart_title_case(text: str) -> str:
+    def convert_word(match):
+        word = match.group(0)
+
+        # Preserve mixed/uppercase words like BBHin, IAS, IPL
+        if any(c.isupper() for c in word[1:]):
+            return word
+
+        return word[0].upper() + word[1:].lower()
+
+    return re.sub(r"[A-Za-z]+(?:'[A-Za-z]+)?", convert_word, text)
+
+
 def parse_message(text: str):
     """
     Parse a source message and return a dict of extracted fields,
@@ -189,13 +202,7 @@ def parse_message(text: str):
 def build_caption(show_name: str, data: dict) -> str:
     """Build the final HTML-formatted caption."""
     safe_show_name = html.escape(show_name)
-    safe_title = html.escape(
-        re.sub(
-            r"\b([A-Za-z]+)'([A-Za-z]+)\b",
-            lambda m: m.group(1).capitalize() + "'" + m.group(2).lower(),
-            data["title"].title()
-        )
-    )
+    safe_title = html.escape(smart_title_case(data["title"]))
     safe_url = html.escape(data["hotstar_url"])
 
     caption = (
