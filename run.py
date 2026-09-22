@@ -138,6 +138,7 @@ def parse_message(text: str):
         return None
 
     hotstar_url = url_match.group(0)
+    url = clean_show_url(url)
     lines = text.splitlines()
 
     url_line_index = next(
