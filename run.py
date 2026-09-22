@@ -36,6 +36,7 @@ client = TelegramClient(
 
 SHOWS = {
     "anupama": "Anupama",
+    "yeh-fitoor-tera": "Yeh Fitoor Tera";
     "yeh-rishta-kya-kehlata-hai": "Yeh Rishta Kya Kehlata Hai",
     "dr-aarambhi": "Dr. Aarambhi",
     "kyunki-saas-bhi-kabhi-bahu-thi": "Kyunki Saas Bhi Kabhi Bahu Thi",
