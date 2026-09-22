@@ -23,7 +23,7 @@ from telethon.errors import FloodWaitError
 
 API_ID = int(os.environ["API_ID"])
 API_HASH = os.environ["API_HASH"]
-SESSION = os.environ["SESSION"]
+STRING_SESSION = os.environ["STRING_SESSION"]
 
 SOURCE_CHANNEL = -1002044817442
 TARGET_CHANNEL = -1003570870636
