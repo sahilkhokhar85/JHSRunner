@@ -29,7 +29,7 @@ SOURCE_CHANNEL = -1002044817442
 TARGET_CHANNEL = -1003570870636
 
 client = TelegramClient(
-    StringSession(SESSION),
+    StringSession(STRING_SESSION),
     API_ID,
     API_HASH
 )
