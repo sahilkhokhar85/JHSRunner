@@ -79,7 +79,7 @@ POSTER_PATTERN = re.compile(r"https://img\d+\.hotstar\.com/image/upload/[^\s]+")
 
 
 def clean_show_url(url):
-    match = re.match(r"(https://www\.hotstar\.com/in/shows/[^/]+/watch)", url)
+    match = re.match(r"(https://www\.hotstar\.com/in/shows/.*/watch)", url)
     return match.group(1) if match else url
 
 # ---------------------------------------------------------------------------
@@ -186,7 +186,7 @@ def parse_message(text: str):
 def build_caption(show_name: str, data: dict) -> str:
     """Build the final HTML-formatted caption."""
     safe_show_name = html.escape(show_name)
-    safe_title = html.escape(data["title"])
+    safe_title = html.escape(data["title"].title())
     safe_url = html.escape(data["hotstar_url"])
 
     caption = (
